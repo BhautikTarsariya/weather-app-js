@@ -2,8 +2,9 @@
 
 ## Requirements
 
-- Node.js
+- React.js
 - Vite.js
+- Typescript
 
 ## Installation
 
