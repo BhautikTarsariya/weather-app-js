@@ -5,6 +5,12 @@
 - React.js
 - Vite.js
 - Typescript
+- React Router DOM
+- Material UI
+- React Bootstrap
+- Formik
+- Yup
+- Moment.js
 
 ## Installation
 
@@ -14,7 +20,6 @@
 
 ## Available Pages
 
-- `/login` - User login page
+- `/` - User login page
 - `/register` - User registration page
-- `/dashboard` - Weather dashboard displaying current, forecast, and historical weather data
-- `/favorites` - Manage and view favorite cities
+- `/home` - Weather dashboard displaying current, forecast, historical weather data and Manage and view favorite cities
