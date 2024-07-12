@@ -21,24 +21,48 @@ export const login = async (input: any) => {
   return await authApi.post("/login", input);
 };
 
-export const getCurrentWeather = async (city: any) => {
-  return await api.get(`/weather/current?city=${city}`);
+export const getCurrentWeather = async (city: any, token: any) => {
+  return await api.get(`/weather/current?city=${city}`, {
+    headers: {
+      "x-access-token": token,
+    },
+  });
 };
 
-export const getForecastWeather = async (city: any) => {
-  return await api.get(`/weather/forecast?city=${city}`);
+export const getForecastWeather = async (city: any, token: any) => {
+  return await api.get(`/weather/forecast?city=${city}`, {
+    headers: {
+      "x-access-token": token,
+    },
+  });
 };
 
-export const getHistoricalWeather = async (city: any) => {
-  return await api.get(`/weather/historical?city=${city}`);
+export const getHistoricalWeather = async (city: any, token: any) => {
+  return await api.get(`/weather/historical?city=${city}`, {
+    headers: {
+      "x-access-token": token,
+    },
+  });
 };
 
-export const getFavorites = async () => {
-  return await api.get("/favorites");
+export const getFavorites = async (token: any) => {
+  return await api.get("/favorites", {
+    headers: {
+      "x-access-token": token,
+    },
+  });
 };
 
-export const addFavorite = async (city: any) => {
-  return await api.post("/favorites", { city });
+export const addFavorite = async (city: any, token: any) => {
+  return await api.post(
+    "/favorites",
+    { city },
+    {
+      headers: {
+        "x-access-token": token,
+      },
+    }
+  );
 };
 
 export const getWeatherCurrentData = async (userInput: string) => {

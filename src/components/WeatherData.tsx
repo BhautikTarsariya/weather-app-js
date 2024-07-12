@@ -19,7 +19,12 @@ import { IconStar } from "@tabler/icons-react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { Fade, IconButton, Menu, MenuItem } from "@mui/material";
-import { getWeatherCurrentData, getWeatherPastData } from "../api/api";
+import {
+  addFavorite,
+  getFavorites,
+  getWeatherCurrentData,
+  getWeatherPastData,
+} from "../api/api";
 
 const WeatherData = ({ setToken }: any) => {
   const navigate = useNavigate();
@@ -32,13 +37,11 @@ const WeatherData = ({ setToken }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [favoriteCity, setFavoriteCity] = useState<Array<any>>([]);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   useEffect(() => {
@@ -48,13 +51,12 @@ const WeatherData = ({ setToken }: any) => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSearchButton = (e: any) => {
+  const handleSearchButton = () => {
     if (userInput.trim() === "") {
       setError("Please enter a city name.");
       return;
     }
     setLoading(true);
-    e.preventDefault();
 
     getWeatherCurrentData(userInput)
       .then((response) => {
@@ -111,6 +113,41 @@ const WeatherData = ({ setToken }: any) => {
     navigate("/");
   };
 
+  useEffect(() => {
+    const token: any = localStorage.getItem("token");
+    getFavorites(token)
+      .then((response) => {
+        setFavoriteCity(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [refresh]);
+
+  useEffect(() => {
+    if (favoriteCity && favoriteCity.length > 0) {
+      setUserInput(favoriteCity[0].city);
+      handleSearchButton();
+    }
+  }, [favoriteCity]);
+
+  const handleFavoriteCity = (city: any) => {
+    setUserInput(city.city);
+    setAnchorEl(null);
+    handleSearchButton();
+  };
+
+  const handleAddFavoriteCity = () => {
+    const token: any = localStorage.getItem("token");
+    addFavorite(userInput, token)
+      .then(() => {
+        setRefresh((value) => (value === true ? false : true));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div
@@ -157,12 +194,26 @@ const WeatherData = ({ setToken }: any) => {
                   }}
                   anchorEl={anchorEl}
                   open={open}
-                  onClose={handleClose}
+                  onClose={() => setAnchorEl(null)}
                   TransitionComponent={Fade}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  {favoriteCity &&
+                    favoriteCity.map((city: any, index: number) => (
+                      <MenuItem
+                        key={index}
+                        onClick={() => handleFavoriteCity(city)}
+                        className="py-2"
+                      >
+                        {city.city}
+                      </MenuItem>
+                    ))}
+                  <MenuItem
+                    className="py-2"
+                    style={{ border: "1px dashed #d3d3d3" }}
+                    onClick={handleAddFavoriteCity}
+                  >
+                    + Add as favorite city
+                  </MenuItem>
                 </Menu>
               </div>
               <LogoutIcon
