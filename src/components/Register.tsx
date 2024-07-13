@@ -150,7 +150,9 @@ const Register = ({ setToken }: any) => {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link to="/">Already have an account? Sign in</Link>
+                <Link to="/" className="text-decoration-none">
+                  Already have an account? Sign in
+                </Link>
               </Grid>
             </Grid>
           </form>

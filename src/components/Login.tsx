@@ -119,7 +119,9 @@ const Login = ({ setToken }: any) => {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link to="/register">{"Don't have an account? Sign Up"}</Link>
+                <Link to="/register" className="text-decoration-none">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Grid>
             </Grid>
           </form>

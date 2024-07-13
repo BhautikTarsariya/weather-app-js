@@ -138,6 +138,10 @@ const WeatherData = ({ setToken }: any) => {
   };
 
   const handleAddFavoriteCity = () => {
+    if (userInput.trim() === "") {
+      setError("Please enter a city name.");
+      return;
+    }
     const token: any = localStorage.getItem("token");
     addFavorite(userInput, token)
       .then(() => {
@@ -216,11 +220,14 @@ const WeatherData = ({ setToken }: any) => {
                   </MenuItem>
                 </Menu>
               </div>
-              <LogoutIcon
-                className="ms-4"
-                style={{ height: 30, width: 30, cursor: "pointer" }}
-                onClick={handleLogout}
-              />
+              <IconButton className="ms-4" onClick={handleLogout}>
+                <LogoutIcon
+                  style={{
+                    cursor: "pointer",
+                    color: "#FFF",
+                  }}
+                />
+              </IconButton>
             </Col>
           </Row>
 
