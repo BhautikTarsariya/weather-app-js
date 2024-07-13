@@ -1,10 +1,6 @@
 import axios from "axios";
 import moment from "moment";
 
-const REACT_APP_WEATHER_VISUAL_API_KEY = "DRPEATA6ECA9VJXNZ442MLMWM";
-const REACT_APP_WEATHER_VISUAL_API_URL =
-  "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
-
 const authApi = axios.create({
   baseURL: "http://localhost:5000/auth",
 });

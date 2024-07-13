@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import SearchIcon from "../assets/searching.png";
 import { Row, Col, Container } from "react-bootstrap";
@@ -40,10 +40,6 @@ const WeatherData = ({ setToken }: any) => {
   const [favoriteCity, setFavoriteCity] = useState<Array<any>>([]);
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrTime(new Date());
@@ -51,53 +47,39 @@ const WeatherData = ({ setToken }: any) => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSearchButton = () => {
-    if (userInput.trim() === "") {
-      setError("Please enter a city name.");
-      return;
-    }
+  const fetchWeatherData = useCallback((city: string) => {
     setLoading(true);
-
-    getWeatherCurrentData(userInput)
-      .then((response) => {
+    Promise.all([
+      getWeatherCurrentData(city),
+      getWeatherPastData(
+        city,
+        moment().subtract(7, "days").format("YYYY-MM-DDTHH:mm:ss"),
+        moment().format("YYYY-MM-DDTHH:mm:ss")
+      ),
+    ])
+      .then(([currentResponse, pastResponse]) => {
         setLoading(false);
-        setApiData(response.data);
+        setApiData(currentResponse.data);
+        sethistoryApiData(pastResponse.data);
         setError(null);
-        setUserInput("");
       })
       .catch((error) => {
         setLoading(false);
         console.error(error);
         setError("Failed to fetch weather data. Please try again later.");
         setApiData(null);
-      });
-
-    const currentDate = new Date();
-
-    const pastDate = new Date();
-    pastDate.setDate(currentDate.getDate() - 7);
-
-    const past7thDate = moment()
-      .subtract(7, "days")
-      .format("YYYY-MM-DDTHH:mm:ss");
-
-    const presentDate = moment().format("YYYY-MM-DDTHH:mm:ss");
-
-    getWeatherPastData(userInput, past7thDate, presentDate)
-      .then((response) => {
-        setLoading(false);
-        sethistoryApiData(response.data);
-        setError(null);
-        setUserInput("");
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error(error);
-        setError(
-          "Failed to fetch weather history data. Please try again later."
-        );
         sethistoryApiData(null);
       });
+  }, []);
+
+  const handleSearchButton = (e: any) => {
+    e.preventDefault();
+    if (userInput.trim() === "") {
+      setError("Please enter a city name.");
+      return;
+    }
+    fetchWeatherData(userInput);
+    setUserInput("");
   };
 
   const formatDate = (dateStr: any) => {
@@ -125,16 +107,15 @@ const WeatherData = ({ setToken }: any) => {
   }, [refresh]);
 
   useEffect(() => {
-    if (favoriteCity && favoriteCity.length > 0) {
-      setUserInput(favoriteCity[0].city);
-      handleSearchButton();
+    if (favoriteCity.length > 0) {
+      fetchWeatherData(favoriteCity[0].city);
     }
-  }, [favoriteCity]);
+  }, [favoriteCity, fetchWeatherData]);
 
   const handleFavoriteCity = (city: any) => {
     setUserInput(city.city);
     setAnchorEl(null);
-    handleSearchButton();
+    fetchWeatherData(city.city);
   };
 
   const handleAddFavoriteCity = () => {
@@ -145,7 +126,7 @@ const WeatherData = ({ setToken }: any) => {
     const token: any = localStorage.getItem("token");
     addFavorite(userInput, token)
       .then(() => {
-        setRefresh((value) => (value === true ? false : true));
+        setRefresh((prev) => !prev);
       })
       .catch((err) => {
         console.log(err);
@@ -187,7 +168,7 @@ const WeatherData = ({ setToken }: any) => {
                   aria-controls={open ? "fade-menu" : undefined}
                   aria-expanded={open ? "true" : undefined}
                   aria-haspopup="true"
-                  onClick={handleClick}
+                  onClick={(e) => setAnchorEl(e.currentTarget)}
                 >
                   <IconStar style={{ color: "#FFF" }} />
                 </IconButton>
@@ -412,7 +393,8 @@ const WeatherData = ({ setToken }: any) => {
                   </Col>
                 </Row>
                 <div className="scroll-container">
-                  {apiData?.days &&
+                  {apiData &&
+                    apiData.days &&
                     apiData?.days
                       .slice(0, 13)
                       .map((item: any, index: number) => (
@@ -477,7 +459,8 @@ const WeatherData = ({ setToken }: any) => {
                   </Col>
                 </Row>
                 <div className="scroll-container">
-                  {historyApiData?.days &&
+                  {historyApiData &&
+                    historyApiData.days &&
                     historyApiData?.days
                       .slice(0, 13)
                       .map((item: any, index: number) => (
