@@ -278,8 +278,8 @@ const WeatherData = ({ setToken }: any) => {
                         />
 
                         <h4>
-                          Lat: {apiData.latitude} <br /> Long:{" "}
-                          {apiData.longitude}
+                          Lat: {apiData?.latitude} <br /> Long:{" "}
+                          {apiData?.longitude}
                         </h4>
                       </div>
                     </Col>
@@ -292,10 +292,10 @@ const WeatherData = ({ setToken }: any) => {
                           alt="temperature"
                         />
                         <h3>
-                          {apiData.currentConditions.temp}
+                          {apiData?.currentConditions?.temp}
                           °C
                         </h3>
-                        <p>{apiData.currentConditions.conditions}</p>
+                        <p>{apiData?.currentConditions?.conditions}</p>
                       </div>
                     </Col>
                     <Col className="text-center my-4 mb-sm-0" xs={12} md={12}>
@@ -305,7 +305,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData.currentConditions.icon}.svg`}
                           alt="location"
                         />
-                        <h3>{apiData.resolvedAddress}</h3>
+                        <h3>{apiData?.resolvedAddress}</h3>
                       </div>
                     </Col>
                   </Row>
@@ -323,7 +323,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={windIcon}
                           alt="temperature"
                         />
-                        <h4>{apiData.currentConditions.windgust} kph</h4>
+                        <h4>{apiData?.currentConditions?.windgust} kph</h4>
                         <p> Max Speed</p>
                       </div>
                     </Col>
@@ -334,7 +334,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={compassIcon}
                           alt="direction"
                         />
-                        <h3>{apiData.currentConditions.winddir}°</h3>
+                        <h3>{apiData?.currentConditions?.winddir}°</h3>
                         <p> Direction</p>
                       </div>
                     </Col>
@@ -345,7 +345,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={windIcon}
                           alt="wind speed"
                         />
-                        <h3>{apiData.currentConditions.windspeed} kph</h3>
+                        <h3>{apiData?.currentConditions?.windspeed} kph</h3>
                         <p> Speed</p>
                       </div>
                     </Col>
@@ -364,7 +364,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={humidityIcon}
                           alt="humidity"
                         />
-                        <h3>{apiData.currentConditions.humidity} %</h3>
+                        <h3>{apiData?.currentConditions?.humidity} %</h3>
                         <p>Humidity</p>
                       </div>
                     </Col>
@@ -375,7 +375,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={visibilityIcon}
                           alt="visibility"
                         />
-                        <h3>{apiData.currentConditions.visibility} km</h3>
+                        <h3>{apiData?.currentConditions?.visibility} km</h3>
                         <p>Visibility</p>
                       </div>
                     </Col>
@@ -386,7 +386,7 @@ const WeatherData = ({ setToken }: any) => {
                           src={barometerIcon}
                           alt="pressure"
                         />
-                        <h3>{apiData.currentConditions.pressure} mb </h3>
+                        <h3>{apiData?.currentConditions?.pressure} mb </h3>
                         <p>Pressure</p>
                       </div>
                     </Col>
@@ -405,8 +405,8 @@ const WeatherData = ({ setToken }: any) => {
                   </Col>
                 </Row>
                 <div className="scroll-container">
-                  {apiData.days &&
-                    apiData.days
+                  {apiData?.days &&
+                    apiData?.days
                       .slice(0, 13)
                       .map((item: any, index: number) => (
                         <Row
@@ -470,8 +470,8 @@ const WeatherData = ({ setToken }: any) => {
                   </Col>
                 </Row>
                 <div className="scroll-container">
-                  {historyApiData.days &&
-                    historyApiData.days
+                  {historyApiData?.days &&
+                    historyApiData?.days
                       .slice(0, 13)
                       .map((item: any, index: number) => (
                         <Row

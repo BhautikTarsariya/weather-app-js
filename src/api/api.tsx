@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
-const REACT_APP_WEATHER_VISUAL_API_KEY = "YDRN646TUFH77Z43XD93JFKAQ";
+const REACT_APP_WEATHER_VISUAL_API_KEY = "F9R4ZUY8LJ8PSN5QK8C9L56XD";
 const REACT_APP_WEATHER_VISUAL_API_URL =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 
