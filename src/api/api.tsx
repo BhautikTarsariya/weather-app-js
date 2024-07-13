@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
-const REACT_APP_WEATHER_VISUAL_API_KEY = "W5FC9GUELAGW4NYDYJRNXA8RR";
+const REACT_APP_WEATHER_VISUAL_API_KEY = "DRPEATA6ECA9VJXNZ442MLMWM";
 const REACT_APP_WEATHER_VISUAL_API_URL =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 
@@ -66,10 +66,12 @@ export const addFavorite = async (city: any, token: any) => {
 };
 
 export const getWeatherCurrentData = async (userInput: string) => {
-  const apiUrl = `${REACT_APP_WEATHER_VISUAL_API_URL}/${userInput}/${moment()
+  const apiUrl = `${
+    import.meta.env.VITE_APP_WEATHER_VISUAL_API_URL
+  }/${userInput}/${moment()
     .subtract(7, "days")
     .format("YYYY-MM-DD")}/${moment().format("YYYY-MM-DD")}`;
-  const apiKey = REACT_APP_WEATHER_VISUAL_API_KEY;
+  const apiKey = import.meta.env.VITE_APP_WEATHER_VISUAL_API_KEY;
 
   return await axios.get(`${apiUrl}?key=${apiKey}&unitGroup=metric`);
 };
@@ -79,8 +81,10 @@ export const getWeatherPastData = async (
   past7thDate: string,
   presentDate: string
 ) => {
-  const apiUrl = `${REACT_APP_WEATHER_VISUAL_API_URL}/${userInput}/${past7thDate}/${presentDate}`;
-  const apiKey = REACT_APP_WEATHER_VISUAL_API_KEY;
+  const apiUrl = `${
+    import.meta.env.VITE_APP_WEATHER_VISUAL_API_URL
+  }/${userInput}/${past7thDate}/${presentDate}`;
+  const apiKey = import.meta.env.VITE_APP_WEATHER_VISUAL_API_KEY;
 
   return await axios.get(`${apiUrl}?key=${apiKey}`);
 };

@@ -309,7 +309,7 @@ const WeatherData = ({ setToken }: any) => {
                       <div className="glass-bg py-4">
                         <img
                           className="weather-icons mb-4"
-                          src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData.currentConditions.icon}.svg`}
+                          src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData?.currentConditions?.icon}.svg`}
                           alt="location"
                         />
                         <h3>{apiData?.resolvedAddress}</h3>
