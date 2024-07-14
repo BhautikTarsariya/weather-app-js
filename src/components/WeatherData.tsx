@@ -11,9 +11,10 @@ import barometerIcon from "../assets/barometer.svg";
 import maxIcon from "../assets/pressure-high.svg";
 import minIcon from "../assets/pressure-low.svg";
 import visibilityIcon from "../assets/dust-wind.svg";
+import sunriseIcon from "../assets/sunrise.svg";
+import sunsetIcon from "../assets/sunset.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
-import SolarSVG from "./SolarSVG";
 import moment from "moment";
 import { IconStar } from "@tabler/icons-react";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -256,140 +257,132 @@ const WeatherData = ({ setToken }: any) => {
                     Current Weather
                   </Col>
 
-                  <Row>
-                    <Col className="text-center mb-4 mb-sm-4" xs={12} md={6}>
-                      <div className="glass-bg py-4">
-                        <img
-                          className="weather-icons"
-                          src={locationIcon}
-                          alt="location"
-                        />
+                  <Col className="text-center mb-4 mb-sm-4" xs={12} md={6}>
+                    <div className="glass-bg py-4">
+                      <img
+                        className="weather-icons"
+                        src={locationIcon}
+                        alt="location"
+                      />
 
-                        <h4>
-                          Lat: {apiData?.latitude} <br /> Long:{" "}
-                          {apiData?.longitude}
-                        </h4>
-                      </div>
-                    </Col>
+                      <h4>
+                        Lat: {apiData?.latitude} <br /> Long:{" "}
+                        {apiData?.longitude}
+                      </h4>
+                    </div>
+                  </Col>
 
-                    <Col className="text-center" xs={12} md={6}>
-                      <div className="glass-bg py-4">
-                        <img
-                          className="weather-icons"
-                          src={tempIcon}
-                          alt="temperature"
-                        />
-                        <h3>
-                          {apiData?.currentConditions?.temp}
-                          °C
-                        </h3>
-                        <p>{apiData?.currentConditions?.conditions}</p>
-                      </div>
-                    </Col>
-                    <Col className="text-center my-4 mb-sm-0" xs={12} md={12}>
-                      <div className="glass-bg py-4">
-                        <img
-                          className="weather-icons mb-4"
-                          src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData?.currentConditions?.icon}.svg`}
-                          alt="location"
-                        />
-                        <h3>{apiData?.resolvedAddress}</h3>
-                      </div>
-                    </Col>
-                  </Row>
-                </Row>
-                <Row>
-                  <Col className="text-center my-5" xs={12} md={12}>
+                  <Col className="text-center" xs={12} md={6}>
+                    <div className="glass-bg py-4">
+                      <img
+                        className="weather-icons"
+                        src={tempIcon}
+                        alt="temperature"
+                      />
+                      <h3>
+                        {apiData?.currentConditions?.temp}
+                        °C
+                      </h3>
+                      <p>{apiData?.currentConditions?.conditions}</p>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center my-4 mb-sm-0" xs={12} md={12}>
+                    <div className="glass-bg py-4">
+                      <img
+                        className="weather-icons mb-4"
+                        src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData?.currentConditions?.icon}.svg`}
+                        alt="location"
+                      />
+                      <h3>{apiData?.resolvedAddress}</h3>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center my-4" xs={12} md={12}>
                     Wind Condition
                   </Col>
 
-                  <Row>
-                    <Col className="text-center" xs={6} md={6}>
-                      <div className="p-4 glass-bg">
-                        <img
-                          className="weather-icons"
-                          src={windIcon}
-                          alt="temperature"
-                        />
-                        <h4>{apiData?.currentConditions?.windgust} kph</h4>
-                        <p> Max Speed</p>
-                      </div>
-                    </Col>
-                    <Col className="text-center" xs={6} md={6}>
-                      <div className="p-4 glass-bg">
-                        <img
-                          className="weather-icons"
-                          src={compassIcon}
-                          alt="direction"
-                        />
-                        <h3>{apiData?.currentConditions?.winddir}°</h3>
-                        <p> Direction</p>
-                      </div>
-                    </Col>
-                    <Col className="text-center mt-4 " xs={12} md={12}>
-                      <div className="p-4 glass-bg">
-                        <img
-                          className="weather-icons"
-                          src={windIcon}
-                          alt="wind speed"
-                        />
-                        <h3>{apiData?.currentConditions?.windspeed} kph</h3>
-                        <p> Speed</p>
-                      </div>
-                    </Col>
-                  </Row>
-                </Row>
-                <Row>
-                  <Col className="text-center my-5" xs={12} md={12}>
+                  <Col className="text-center" xs={6} md={6}>
+                    <div className="p-4 glass-bg">
+                      <img
+                        className="weather-icons"
+                        src={windIcon}
+                        alt="temperature"
+                      />
+                      <h4>{apiData?.currentConditions?.windgust} kph</h4>
+                      <p> Max Speed</p>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center" xs={6} md={6}>
+                    <div className="p-4 glass-bg">
+                      <img
+                        className="weather-icons"
+                        src={compassIcon}
+                        alt="direction"
+                      />
+                      <h3>{apiData?.currentConditions?.winddir}°</h3>
+                      <p> Direction</p>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center mt-4 " xs={12} md={12}>
+                    <div className="p-4 glass-bg">
+                      <img
+                        className="weather-icons"
+                        src={windIcon}
+                        alt="wind speed"
+                      />
+                      <h3>{apiData?.currentConditions?.windspeed} kph</h3>
+                      <p> Speed</p>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center my-4" xs={12} md={12}>
                     Atmosphere
                   </Col>
 
-                  <Row>
-                    <Col className="text-center" xs={6} md={6}>
-                      <div className="p-4 glass-bg">
-                        <img
-                          className="weather-icons"
-                          src={humidityIcon}
-                          alt="humidity"
-                        />
-                        <h3>{apiData?.currentConditions?.humidity} %</h3>
-                        <p>Humidity</p>
-                      </div>
-                    </Col>
-                    <Col className="text-center" xs={6} md={6}>
-                      <div className="p-4 glass-bg">
-                        <img
-                          className="weather-icons"
-                          src={visibilityIcon}
-                          alt="visibility"
-                        />
-                        <h3>{apiData?.currentConditions?.visibility} km</h3>
-                        <p>Visibility</p>
-                      </div>
-                    </Col>
-                    <Col className="text-center mt-4 " xs={12} md={12}>
-                      <div className="p-4 glass-bg">
-                        <img
-                          className="weather-icons"
-                          src={barometerIcon}
-                          alt="pressure"
-                        />
-                        <h3>{apiData?.currentConditions?.pressure} mb </h3>
-                        <p>Pressure</p>
-                      </div>
-                    </Col>
-                  </Row>
-                </Row>
-                <Row>
-                  <Col className="mt-4">
-                    <SolarSVG />
+                  <Col className="text-center" xs={6} md={6}>
+                    <div className="p-4 glass-bg">
+                      <img
+                        className="weather-icons"
+                        src={humidityIcon}
+                        alt="humidity"
+                      />
+                      <h3>{apiData?.currentConditions?.humidity} %</h3>
+                      <p>Humidity</p>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center" xs={6} md={6}>
+                    <div className="p-4 glass-bg">
+                      <img
+                        className="weather-icons"
+                        src={visibilityIcon}
+                        alt="visibility"
+                      />
+                      <h3>{apiData?.currentConditions?.visibility} km</h3>
+                      <p>Visibility</p>
+                    </div>
+                  </Col>
+
+                  <Col className="text-center mt-4 " xs={12} md={12}>
+                    <div className="p-4 glass-bg">
+                      <img
+                        className="weather-icons"
+                        src={barometerIcon}
+                        alt="pressure"
+                      />
+                      <h3>{apiData?.currentConditions?.pressure} mb </h3>
+                      <p>Pressure</p>
+                    </div>
                   </Col>
                 </Row>
               </Col>
               <Col xs={12} md={4}>
                 <Row className="mb-5">
                   <Col className="text-center" xs={12} md={12}>
-                    14 Day Forecast
+                    7 Day Forecast
                   </Col>
                 </Row>
                 <div className="scroll-container">
@@ -518,6 +511,33 @@ const WeatherData = ({ setToken }: any) => {
                       ))}
                 </div>
               </Col>
+              <Row>
+                <Col className="text-center my-5" xs={12} md={12}>
+                  Astronomy
+                </Col>
+                <Col className="text-center" xs={6} md={6}>
+                  <div className="py-4 glass-bg">
+                    <img
+                      className="weather-icons"
+                      src={sunriseIcon}
+                      alt="sunrise"
+                    />
+                    <h3>{apiData.currentConditions.sunrise}</h3>
+                    <p>Sunrise</p>
+                  </div>
+                </Col>
+                <Col className="text-center" xs={6} md={6}>
+                  <div className="py-4 glass-bg">
+                    <img
+                      className="weather-icons"
+                      src={sunsetIcon}
+                      alt="sunset"
+                    />
+                    <h3>{apiData.currentConditions.sunset}</h3>
+                    <p>Sunset</p>
+                  </div>
+                </Col>
+              </Row>
             </Row>
           )}
         </Container>
